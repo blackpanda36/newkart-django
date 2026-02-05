@@ -1,0 +1,64 @@
+<!-- Navigation Bar -->
+ {% load static %}
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm fixed-top">
+        <div class="container">
+            <a class="navbar-brand fw-bold fs-3 text-primary" href="#">
+                <i class="fas fa-shopping-cart me-2"></i>GreatKart
+            </a>
+            
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav mx-auto">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="categoryDropdown" role="button" data-bs-toggle="dropdown">
+                            All category
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">Electronics</a></li>
+                            <li><a class="dropdown-item" href="#">Fashion</a></li>
+                            <li><a class="dropdown-item" href="#">Home & Garden</a></li>
+                            <li><a class="dropdown-item" href="#">Sports</a></li>
+                            <li><a class="dropdown-item" href="#">Books</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Store</a>
+                    </li>
+                </ul>
+                
+                <div class="d-flex align-items-center">
+                    <div class="dropdown me-3">
+                        <a class="nav-link dropdown-toggle" href="#" id="currencyDropdown" role="button" data-bs-toggle="dropdown">
+                            <i class="fas fa-dollar-sign"></i> USD
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#"><i class="fas fa-euro-sign"></i> EUR</a></li>
+                            <li><a class="dropdown-item" href="#"><i class="fas fa-pound-sign"></i> GBP</a></li>
+                            <li><a class="dropdown-item" href="#"><i class="fas fa-yen-sign"></i> JPY</a></li>
+                        </ul>
+                    </div>
+                    
+                    <form class="d-flex me-3">
+                        <div class="input-group">
+                            <input class="form-control" type="search" placeholder="Search products..." aria-label="Search">
+                            <button class="btn btn-outline-primary" type="submit">
+                                <i class="fas fa-search"></i>
+                            </button>
+                        </div>
+                    </form>
+                    
+                    <div class="d-flex">
+                        <a href="#" class="nav-link me-3"><i class="fas fa-heart fa-lg"></i></a>
+                        <a href="#" class="nav-link me-3 position-relative">
+                            <i class="fas fa-shopping-cart fa-lg"></i>
+                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">3</span>
+                        </a>
+                        <a href="#" class="nav-link"><i class="fas fa-user fa-lg"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
