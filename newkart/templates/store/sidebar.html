@@ -1,0 +1,178 @@
+    <!-- Main Content -->
+    <main class="container mt-4">
+        <div class="row">
+            <!-- Sidebar Filters -->
+            <div class="col-lg-3 col-md-4 mb-4">
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <h5 class="card-title mb-4">Refine By</h5>
+                        
+                        <!-- Shop For -->
+                        <div class="mb-4">
+                            <h6 class="fw-bold mb-3">Shop For</h6>
+                            <div class="form-check mb-2">
+                                <input class="form-check-input" type="checkbox" id="menCheck" checked>
+                                <label class="form-check-label d-flex justify-content-between" for="menCheck">
+                                    <span>Men</span>
+                                    <span class="text-muted">(21,324)</span>
+                                </label>
+                            </div>
+                            <div class="form-check mb-2">
+                                <input class="form-check-input" type="checkbox" id="boysCheck">
+                                <label class="form-check-label d-flex justify-content-between" for="boysCheck">
+                                    <span>Boys</span>
+                                    <span class="text-muted">(2,014)</span>
+                                </label>
+                            </div>
+                            <div class="form-check mb-2">
+                                <input class="form-check-input" type="checkbox" id="womenCheck">
+                                <label class="form-check-label d-flex justify-content-between" for="womenCheck">
+                                    <span>Women</span>
+                                    <span class="text-muted">(2)</span>
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <!-- Category -->
+                        <div class="mb-4">
+                            <h6 class="fw-bold mb-3">Category</h6>
+                            {% for menu_category in links %}
+                            <div class="form-check mb-2">
+                                <input class="form-check-input" type="checkbox" id="{{menu_category.category_name|lower}}Check" checked>
+                                <label class="form-check-label d-flex justify-content-between" for="jeansCheck">
+                                    <span>{{menu_category.category_name}}</span>
+                                    <span class="text-muted">menu_category.</span>
+                                </label>
+                            </div>
+                            {%endfor%}
+                        </div>
+                        
+                        <!-- Price -->
+                        <div class="mb-4">
+                            <h6 class="fw-bold mb-3">Price</h6>
+                            <div class="range-slider-container">
+                                <input type="range" class="form-range" min="0" max="10000" step="100" id="priceRange">
+                                <div class="d-flex justify-content-between mt-2">
+                                    <small>₹0</small>
+                                    <small>₹10,000</small>
+                                </div>
+                                <div class="text-center mt-2">
+                                    <span class="badge bg-primary" id="priceDisplay">₹0 - ₹10,000</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Brands -->
+                        <div class="mb-4">
+                            <h6 class="fw-bold mb-3">Brands</h6>
+                            <div class="form-check mb-2">
+                                <input class="form-check-input" type="checkbox" id="levisCheck" checked>
+                                <label class="form-check-label" for="levisCheck">Levi's</label>
+                            </div>
+                            <div class="form-check mb-2">
+                                <input class="form-check-input" type="checkbox" id="wranglerCheck">
+                                <label class="form-check-label" for="wranglerCheck">Wrangler</label>
+                            </div>
+                            <div class="form-check mb-2">
+                                <input class="form-check-input" type="checkbox" id="pepeCheck">
+                                <label class="form-check-label" for="pepeCheck">Pepe Jeans</label>
+                            </div>
+                            <a href="#" class="small text-decoration-none">+ View more</a>
+                        </div>
+                        
+                        <!-- Min 40% Off -->
+                        <div class="mb-4">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="discountCheck" checked>
+                                <label class="form-check-label fw-bold text-danger" for="discountCheck">
+                                    <i class="fas fa-tag me-2"></i> Min 40 Percent Off
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <!-- Colors -->
+                        <div class="mb-4">
+                            <h6 class="fw-bold mb-3">Colors</h6>
+                            <div class="color-options d-flex flex-wrap gap-2">
+                                <button class="color-option" style="background-color: #000000;" data-color="black" title="Black"></button>
+                                <button class="color-option" style="background-color: #2b2b2b;" data-color="dark-grey" title="Dark Grey"></button>
+                                <button class="color-option" style="background-color: #8B4513;" data-color="brown" title="Brown"></button>
+                                <button class="color-option" style="background-color: #0066cc;" data-color="blue" title="Blue"></button>
+                                <button class="color-option" style="background-color: #808080;" data-color="grey" title="Grey"></button>
+                            </div>
+                        </div>
+                        
+                        <hr>
+                        
+                        <!-- Additional filters -->
+                        <div class="accordion" id="filterAccordion">
+                            <div class="accordion-item">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sizeFilter">
+                                        Size & Fit
+                                    </button>
+                                </h2>
+                                <div id="sizeFilter" class="accordion-collapse collapse" data-bs-parent="#filterAccordion">
+                                    <div class="accordion-body">
+                                        <!-- Size options would go here -->
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#highlightsFilter">
+                                        Highlights
+                                    </button>
+                                </h2>
+                                <div id="highlightsFilter" class="accordion-collapse collapse" data-bs-parent="#filterAccordion">
+                                    <div class="accordion-body">
+                                        <!-- Highlights options would go here -->
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#ratingFilter">
+                                        Rating
+                                    </button>
+                                </h2>
+                                <div id="ratingFilter" class="accordion-collapse collapse" data-bs-parent="#filterAccordion">
+                                    <div class="accordion-body">
+                                        <!-- Rating options would go here -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Product Grid -->   
+            <div class="col-lg-9 col-md-8">
+                <!-- Top Controls -->
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h2 class="h5 mb-0">Men's Jeans</h2>
+                    <div class="d-flex align-items-center">
+                        <div class="me-3">
+                            <span class="text-muted me-2">GRID</span>
+                            <div class="btn-group" role="group">
+                                <button type="button" class="btn btn-outline-secondary active" id="gridView">
+                                    <i class="fas fa-th"></i>
+                                </button>
+                                <button type="button" class="btn btn-outline-secondary" id="listView">
+                                    <i class="fas fa-list"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div>
+                            <select class="form-select" id="sortBy">
+                                <option selected>Relevance</option>
+                                <option value="price-low">Price: Low to High</option>
+                                <option value="price-high">Price: High to Low</option>
+                                <option value="rating">Customer Rating</option>
+                                <option value="newest">Newest First</option>
+                                <option value="discount">Discount</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>

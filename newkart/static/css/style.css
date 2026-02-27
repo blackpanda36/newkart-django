@@ -297,3 +297,7 @@ footer hr {
     border-radius: 50%;
     animation: button-loading 0.8s linear infinite;
 }
+.product-link {
+    text-decoration: none;
+    color: inherit;
+}

@@ -1,6 +1,13 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+from store.models import Product
 
 def home(request):
-   return render(request ,"home.html")
+   product = Product.objects.all().filter(is_available=True)
+
+   context = {
+      'products':product,
+   }
+
+   return render(request ,"home.html",context)
    

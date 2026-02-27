@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Card · Django Admin Theme</title>
+    <!-- Link your existing CSS files -->
+    <link rel="stylesheet" href="base.css">
+    <link rel="stylesheet" href="forms.css">
+    <link rel="stylesheet" href="autocomplete.css">
+    <link rel="stylesheet" href="navbar.css">
+    <link rel="stylesheet" href="login.css">
+    <!-- Font Awesome for icons (consistent with admin) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Additional styles for product card that blend with Django admin */
+        :root {
+            --product-card-bg: var(--body-bg);
+            --product-border: var(--hairline-color);
+            --product-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            --product-accent: var(--primary);
+            --product-accent-dark: var(--secondary);
+        }
+
+        body {
+            background: var(--darkened-bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+            font-family: var(--font-family-primary);
+        }
+
+        /* Product card container - matches admin module styling */
+        .product-card {
+            max-width: 420px;
+            width: 100%;
+            background: var(--product-card-bg);
+            border: 1px solid var(--product-border);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: var(--product-shadow);
+            transition: box-shadow 0.2s ease;
+        }
+
+        .product-card:hover {
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Product image section */
+        .product-image {
+            background: var(--darkened-bg);
+            padding: 30px 20px;
+            text-align: center;
+            border-bottom: 1px solid var(--product-border);
+        }
+
+        .product-image img {
+            max-width: 100%;
+            height: auto;
+            max-height: 220px;
+            object-fit: contain;
+        }
+
+        /* Product content - uses admin spacing */
+        .product-content {
+            padding: 20px;
+        }
+
+        /* Product header */
+        .product-header {
+            margin-bottom: 15px;
+            border-bottom: 1px solid var(--hairline-color);
+            padding-bottom: 10px;
+        }
+
+        .product-name {
+            margin: 0 0 5px 0;
+            font-size: 1.5rem;
+            font-weight: 500;
+            color: var(--body-fg);
+        }
+
+        .product-category {
+            color: var(--body-quiet-color);
+            font-size: 0.8125rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* Product details - matches admin form styling */
+        .product-details {
+            background: var(--darkened-bg);
+            padding: 12px;
+            border-radius: 4px;
+            margin: 15px 0;
+            font-size: 0.8125rem;
+            line-height: 1.5;
+            color: var(--body-fg);
+            border: 1px solid var(--hairline-color);
+        }
+
+        .product-details i {
+            color: var(--primary);
+            margin-right: 6px;
+        }
+
+        /* Features grid */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin: 15px 0;
+        }
+
+        .feature-item {
+            background: var(--darkened-bg);
+            border: 1px solid var(--hairline-color);
+            border-radius: 4px;
+            padding: 8px;
+            font-size: 0.75rem;
+            color: var(--body-quiet-color);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .feature-item i {
+            color: var(--primary);
+            font-size: 0.875rem;
+        }
+
+        /* Price section - like admin module caption */
+        .price-section {
+            background: var(--darkened-bg);
+            margin: 15px 0;
+            padding: 12px;
+            border-radius: 4px;
+            border: 1px solid var(--hairline-color);
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .current-price {
+            font-size: 1.75rem;
+            font-weight: 500;
+            color: var(--body-fg);
+        }
+
+        .current-price .currency {
+            font-size: 1rem;
+            color: var(--body-quiet-color);
+            margin-right: 2px;
+        }
+
+        .old-price {
+            font-size: 0.875rem;
+            color: var(--body-quiet-color);
+            text-decoration: line-through;
+            margin-left: 8px;
+        }
+
+        .discount-badge {
+            background: var(--primary);
+            color: var(--primary-fg);
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.6875rem;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        /* Action buttons - using admin button styles */
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+            margin: 20px 0 10px;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            font-family: var(--font-family-primary);
+            font-size: 0.8125rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background 0.15s;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .btn i {
+            font-size: 0.875rem;
+        }
+
+        /* Buy now button - uses admin default button style */
+        .btn-buy {
+            background: var(--default-button-bg);
+            color: var(--button-fg);
+        }
+
+        .btn-buy:hover, .btn-buy:focus {
+            background: var(--default-button-hover-bg);
+        }
+
+        /* Add to kart button - uses admin close button style for variety */
+        .btn-cart {
+            background: var(--close-button-bg);
+            color: var(--button-fg);
+        }
+
+        .btn-cart:hover, .btn-cart:focus {
+            background: var(--close-button-hover-bg);
+        }
+
+        /* Product meta footer - like admin object-tools */
+        .product-meta {
+            margin-top: 15px;
+            padding-top: 10px;
+            border-top: 1px solid var(--hairline-color);
+            display: flex;
+            gap: 15px;
+            font-size: 0.6875rem;
+            color: var(--body-quiet-color);
+        }
+
+        .product-meta span {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .product-meta i {
+            color: var(--primary);
+        }
+
+        /* Stock status indicator */
+        .in-stock {
+            color: var(--success-fg, #417690);
+        }
+
+        /* Responsive design */
+        @media (max-width: 480px) {
+            .action-buttons {
+                flex-direction: column;
+            }
+            
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .price-section {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+
+        /* Dark mode support - uses admin CSS variables */
+        @media (prefers-color-scheme: dark) {
+            .product-card {
+                --product-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="product-card">
+        <!-- Product Image -->
+        <div class="product-image">
+            <img src="{{ single_product.image.url }}" 
+                 alt="Product"
+                 >
+        </div>
+
+        <!-- Product Content -->
+        <div class="product-content">
+            <!-- Product Name and Category -->
+            <div class="product-header">
+                <h2 class="product-name">{{single_product.product_name}}</h2>
+                <div class="product-category">No data available</div>
+            </div>
+
+            <!-- Product Details (description) -->
+            <div class="product-details">
+                <i class="fas fa-info-circle"></i>
+                {{single_product.description}}
+            </div>
+
+
+            <!-- Price Section -->
+            <div class="price-section">
+                <div>
+                    <span class="current-price">
+                        <span class="currency">$</span>{{single_product.price}}
+                    </span>
+                    <span class="old-price">$349.99</span>
+                </div>
+                <span class="discount-badge">Save $100</span>
+            </div>
+
+            <!-- Action Buttons - Buy Now and Add to Kart -->
+            <div class="action-buttons">
+                <button class="btn btn-buy" onclick="alert('Buy Now clicked - Proceed to checkout')">
+                    <i class="fas fa-bolt"></i>
+                    Buy Now
+                </button>
+                <button class="btn btn-cart" onclick="alert('Add to Kart clicked - Product added to kart')">
+                    <i class="fas fa-shopping-cart"></i>
+                    Add to Kart
+                </button>
+            </div>
+
+            <!-- Product Meta Information -->
+            <div class="product-meta">
+                <span class="in-stock">
+                    <i class="fas fa-check-circle"></i>
+                    In Stock
+                </span>
+                <span>
+                    <i class="fas fa-truck"></i>
+                    Free Shipping
+                </span>
+                <span>
+                    <i class="fas fa-undo-alt"></i>
+                    30-Day Returns
+                </span>
+            </div>
+
+            <!-- Additional admin-style note -->
+            <div style="margin-top: 10px; font-size: 0.6875rem; color: var(--body-quiet-color); text-align: center;">
+                <i class="fas fa-lock" style="margin-right: 4px;"></i>
+                Secure checkout · 100% authentic
+            </div>
+        </div>
+    </div>
+
+    <!-- Simple JavaScript for button interactions -->
+    <script>
+        // Make buttons functional with admin-style alerts
+        document.querySelectorAll('.btn').forEach(button => {
+            button.addEventListener('click', function(e) {
+                e.preventDefault();
+                const action = this.classList.contains('btn-buy') ? 'Buy Now' : 'Add to Kart';
+                console.log(`${action} clicked - Product: AudioTech Pro+`);
+            });
+        });
+    </script>
+</body>
+</html>
