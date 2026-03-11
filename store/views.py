@@ -2,6 +2,8 @@ from django.shortcuts import render , get_object_or_404
 from store.models import Product
 from category.models import Category
 
+from django.core.paginator import EmptyPage, PageNotAnInteger , Paginator
+
 # Create your views here.
 def store(request , category_slug =None):
     categories = None 
@@ -16,13 +18,19 @@ def store(request , category_slug =None):
         # print(categories.get_url())
         product = Product.objects.all().filter(category=categories ,is_available = True)
         product_count = product.count()
+        paginator = Paginator(product , 4)
+        page = request.GET.get('page')
+        paged_products = paginator.get_page(page)
         context = {
-            'products':product,
+            'products':paged_products,
         }
     else:
         product = Product.objects.all().filter(is_available=True)
+        paginator = Paginator(product , 4)
+        page = request.GET.get('page')
+        paged_products = paginator.get_page(page)
         context = {
-            'products':product,
+            'products':paged_products,
     }
     return render(request , 'store/store.html' ,context)
 

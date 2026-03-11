@@ -1,0 +1,254 @@
+{% load static %}
+
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flipkart Cart Page</title>
+
+```
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<link rel="stylesheet" href="{% static 'css/cart.css' %}">
+```
+
+</head>
+
+<body>
+
+```
+<!-- Header -->
+<header class="header">
+    <div class="header-left">
+        <div class="logo-area">
+            <a href="#" class="flipkart-logo">NewCart</a>
+            <div class="explore-plus">Your <span>Cart</span></div>
+        </div>
+
+        <div class="search-bar">
+            <input type="text" placeholder="Search for products, brands and more">
+            <button>
+                <i class="fas fa-search"></i>
+            </button>
+        </div>
+    </div>
+
+    <div class="header-right">
+        <div class="login-btn">Login</div>
+        <i class="fas fa-shopping-cart"></i>
+        <i class="fas fa-ellipsis-v"></i>
+    </div>
+</header>
+
+
+<!-- Main Content -->
+<div class="container">
+
+    <!-- Left Section -->
+    <div class="cart-section">
+
+        <!-- Delivery Address -->
+        <div class="delivery-card">
+            <div class="delivery-title">Deliver to:</div>
+
+            <div class="delivery-address">
+                <span class="address-badge">HOME</span>
+
+                <span class="address-text">
+                    <strong>Surendran EN, 673596</strong><br>
+                    Ezhuthanikkunnel, Kenichira po Opposite of bsnl telephone ...
+                </span>
+
+                <span class="change-link">Change</span>
+            </div>
+        </div>
+
+
+        <!-- Cart Items -->
+        <div id="cart-items-container">
+            {% if not cart_items %}
+            <div><h3>Cart is empty!</h3></div>
+            {% endif %}
+
+            {% for cart_item in cart_items %}
+
+            <div class="cart-card"
+                 data-item-id="{{ cart_item.id }}"
+                 data-product-id="{{ cart_item.product.id }}">
+
+                <div class="product-item">
+
+                    <div class="product-image">
+                        <img
+                            src="{{ cart_item.product.image.url }}"
+                            class="img-fluid"
+                            alt="{{ cart_item.product.name }}">
+                    </div>
+
+
+                    <div class="product-details">
+
+                        <div class="product-brand">
+                            {{ cart_item.product.product_name }}
+                        </div>
+
+                        <div class="product-price-info">
+                            <span class="product-price">
+                                Price: ₹{{ cart_item.product.price }}
+                            </span>
+
+                            <span class="product-total-price">
+                                Total: ₹{{ cart_item.sub_total }}
+                            </span>
+                        </div>
+
+
+                        <div class="quantity-controls">
+                            {% comment %}  minus button  {% endcomment %}
+                            <a href = "{% url 'remove_cart' cart_item.product.id %}" class="quantity-btn">−</a>
+                            <span class="quantity-value">
+                                {{ cart_item.quantity }}
+                            </span>
+
+                            <a href = "{% url 'add_cart' cart_item.product.id %}" class="quantity-btn">+</a>
+                        </div>
+
+
+                        <div class="product-specs">
+                            Size: 7, White, 7
+                        </div>
+
+
+                        <div class="out-of-stock">
+                            <i class="fas fa-exclamation-circle"></i>
+                            Currently out of stock for 673596
+                        </div>
+
+
+                        <div class="product-actions">
+
+                            <button class="action-btn save">
+                                <i class="far fa-bookmark"></i>
+                                SAVE FOR LATER
+                            </button>
+
+                            <span class="divider">|</span>
+
+                            <a href = "{% url 'remove_cart' cart_item.product.id %}" class="action-btn remove">
+                                <i class="far fa-trash-alt"></i>
+                                REMOVE
+                            </a>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            {% endfor %}
+
+        </div>
+    </div>
+
+
+    <!-- Right Section : Price Details -->
+    <div class="price-section">
+
+        <div class="price-card">
+
+            <div class="price-header">
+                Price details
+            </div>
+
+
+            <div class="price-row">
+                <span>
+                    MRP
+                    <span id="item-count" style="color:#878787;">
+                        ({{ cart_items|length }} item{% if cart_items|length > 1 %}s{% endif %})
+                    </span>
+                </span>
+
+                <span id="mrp-total">
+                    ₹{{ total }}
+                </span>
+            </div>
+
+
+            <div class="price-row discount">
+                <span>
+                    Discount on MRP
+                    <i class="fas fa-chevron-down" style="font-size:12px;"></i>
+                </span>
+
+                <span id="discount-amount" style="color:#388e3c;">
+                    -₹0
+                </span>
+            </div>
+
+
+            <div class="total-row">
+                <span>Total Amount</span>
+                <span id="cart-total">₹{{ total }}</span>
+            </div>
+
+
+            <div class="savings">
+                <i class="fas fa-tags"></i>
+                You will save ₹0 on this order
+            </div>
+
+
+            <button class="place-order-btn">
+                PLACE ORDER
+            </button>
+
+
+            <div class="secure-info">
+                <i class="fas fa-shield-alt"></i>
+                Safe and Secure Payments. Easy returns.
+            </div>
+
+
+            <div class="authentic">
+                100% Authentic products.
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+
+<!-- Footer -->
+<footer class="footer">
+
+    <div class="footer-content">
+
+        <div class="policies">
+            <span>Policies:</span>
+            <a href="#">Returns Policy</a>
+            <a href="#">Terms of use</a>
+            <a href="#">Security</a>
+            <a href="#">Privacy</a>
+        </div>
+
+        <div class="copyright">
+            © 2007-2026 Flipkart.com
+        </div>
+
+        <div class="help">
+            Need help?
+            <a href="#">Help Center</a>
+            or
+            <a href="#">Contact Us</a>
+        </div>
+
+    </div>
+
+</footer>
+```
+
+</body>
+</html>
