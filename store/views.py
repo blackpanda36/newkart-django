@@ -1,6 +1,7 @@
 from django.shortcuts import render , get_object_or_404
 from store.models import Product
 from category.models import Category
+from django.http import HttpResponse
 
 from django.core.paginator import EmptyPage, PageNotAnInteger , Paginator
 
@@ -16,7 +17,7 @@ def store(request , category_slug =None):
         # print(category_slug)
         # print("category url :" , end = "")
         # print(categories.get_url())
-        product = Product.objects.all().filter(category=categories ,is_available = True)
+        product = Product.objects.all().filter(category=categories ,is_available = True).order_by('id')
         product_count = product.count()
         paginator = Paginator(product , 4)
         page = request.GET.get('page')
@@ -25,7 +26,7 @@ def store(request , category_slug =None):
             'products':paged_products,
         }
     else:
-        product = Product.objects.all().filter(is_available=True)
+        product = Product.objects.all().filter(is_available=True).order_by('id')
         paginator = Paginator(product , 4)
         page = request.GET.get('page')
         paged_products = paginator.get_page(page)
@@ -44,5 +45,14 @@ def product_detail(request, category_slug, product_slug):
     }
     return render(request, 'store/product_detail.html', context)
 
+def search(request):
+    if 'keyword' in request.GET:
+        keyword = request.GET['keyword']
+        if keyword:
+            products = Product.objects.order_by('-created_date').filter(description__icontains = keyword , product_name__icontains = keyword)
+    context = {
+        'products':products,
+    }
+    return render(request , 'store/store.html' ,context )
 # def product_detail(request, category_slug, product_slug):
 #     return render(request, 'store/product_detail.html')

@@ -34,8 +34,8 @@
                 </ul>
                 
                 <div class="d-flex align-items-center">
-                    <form class="d-flex me-3">
-                        <input class="form-control me-2" type="search" placeholder="Search products...">
+                    <form action="{% url 'search' %}" class="d-flex me-3">
+                        <input  class="form-control me-2" type="search" placeholder="Search products..." name ="keyword">
                         <button class="btn btn-outline-primary" type="submit">
                             <i class="fas fa-search"></i>
                         </button>
